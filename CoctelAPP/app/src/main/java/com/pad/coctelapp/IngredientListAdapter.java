@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Adapter for a recyclerView aimed at displaying a list of ingredients. \n
+ *  Refer to the documentation of the RecyclerView interface for more information.
+ */
 class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.ViewHolder> {
     private List<String> mIngredients;
     private LayoutInflater inflater;
@@ -22,6 +25,10 @@ class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.V
         this.mIngredients = new ArrayList<String>();
     }
 
+    /** Sets the list of ingredients to be displayed
+     *
+     * @param ingredients a list of Strings representing ingredients
+     */
     public void setIngredients(List<String> ingredients) { mIngredients = ingredients;}
 
     @NonNull
@@ -41,7 +48,8 @@ class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.V
         return mIngredients.size();
     }
 
-
+    /** A ViewHolder consisting of a single TextView
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView wordItemView;
 

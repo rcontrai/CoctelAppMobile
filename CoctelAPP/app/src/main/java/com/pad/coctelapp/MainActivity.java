@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+/** Activity that handles the welcome screen.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -18,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /** The onClick method for photoButton
+     *  Launches AmendActivity
+     *  Planned : should allow the user to take a photo/choose an image from the file system
+     * @param view
+     */
     public void takePhoto(View view) {
         Log.d(TAG,"photoButton was pressed");
         Intent checkIngredientsIntent = new Intent(this,AmendActivity.class);

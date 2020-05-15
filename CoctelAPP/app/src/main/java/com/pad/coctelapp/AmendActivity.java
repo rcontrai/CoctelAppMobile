@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Activity that displays the drinks that were identified previously for review by the user.\n
+ *  Planned : should allow them to edit the list if they find it wrong.
+ */
 public class AmendActivity extends AppCompatActivity {
 
     private static final String TAG = "AmendActivity";
@@ -20,8 +23,8 @@ public class AmendActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     IngredientListAdapter adapter;
-
-    List<String> ingredients;
+    /** the list of ingredients to be displayed for review by the user and possibly edited */
+    public List<String> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,7 @@ public class AmendActivity extends AppCompatActivity {
             setContentView(R.layout.activity_amend_l);
         }
 
-
+        //Setting up recyclerView
         recyclerView = findViewById(R.id.recyclerView);
         adapter = new IngredientListAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -53,11 +56,20 @@ public class AmendActivity extends AppCompatActivity {
 
     }
 
+    /** Updates the list of ingredients displayed by recyclerView
+     *
+     * @param ingredients a list of strings representing ingredients
+     */
     public void updateIngredientList(List<String> ingredients) {
         adapter.setIngredients(ingredients);
         adapter.notifyDataSetChanged();
     }
 
+    /** onClick method for searchCocktailButton
+     *  launches CocktailChoiceActivity and passes the list o ingredients to search to it
+     *
+     * @param view
+     */
     public void startCocktailSearch(View view) {
         Log.d(TAG,"searchCocktailButton was pressed");
         Intent checkRecipesIntent = new Intent(this,CocktailChoiceActivity.class);

@@ -11,13 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Activity that launches a search for cocktails on theCocktailDB and then displays
+ *  the results.
+ */
 public class CocktailChoiceActivity extends AppCompatActivity {
 
     private static final String TAG = "AmendActivity";
 
     RecyclerView recyclerView;
     IngredientListAdapter adapter; //Temporary, should be replaced by a class dedicated to cocktail lists
-
+    /** the list of ingredients to use as search terms on theCocktailDB*/
     List<String> ingredients;
 
     @Override
@@ -25,12 +28,14 @@ public class CocktailChoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"CocktailChoiceActivity started");
         setContentView(R.layout.activity_cocktailchoice);
-        recyclerView = findViewById(R.id.recyclerView);
 
+        //Setting up recyclerView
+        recyclerView = findViewById(R.id.recyclerView);
         adapter = new IngredientListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //Getting the list of ingredients to search from the intent that summoned the activity
         Intent intent = getIntent();
         ArrayList<CharSequence> charSequenceIngredients
                 = intent.getCharSequenceArrayListExtra(AmendActivity.EXTRA_ADD_INGREDIENTS);
