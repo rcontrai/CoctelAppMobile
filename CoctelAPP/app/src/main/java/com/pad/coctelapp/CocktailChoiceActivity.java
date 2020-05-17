@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /** Activity that launches a search for cocktails on theCocktailDB and then displays
@@ -16,7 +15,7 @@ import java.util.List;
  */
 public class CocktailChoiceActivity extends AppCompatActivity {
 
-    private static final String TAG = "AmendActivity";
+    private static final String LOG_TAG = "AmendActivity";
 
     RecyclerView recyclerView;
     IngredientListAdapter adapter; //Temporary, should be replaced by a class dedicated to cocktail lists
@@ -26,7 +25,7 @@ public class CocktailChoiceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"CocktailChoiceActivity started");
+        Log.d(LOG_TAG,"CocktailChoiceActivity started");
         setContentView(R.layout.activity_cocktailchoice);
 
         //Setting up recyclerView
@@ -37,12 +36,13 @@ public class CocktailChoiceActivity extends AppCompatActivity {
 
         //Getting the list of ingredients to search from the intent that summoned the activity
         Intent intent = getIntent();
-        ArrayList<CharSequence> charSequenceIngredients
+        /*ArrayList<CharSequence> charSequenceIngredients
                 = intent.getCharSequenceArrayListExtra(AmendActivity.EXTRA_ADD_INGREDIENTS);
         ingredients = new ArrayList<String>(charSequenceIngredients.size());
         for (CharSequence ingr : charSequenceIngredients) {
             ingredients.add((String) ingr);
-        }
+        }*/
+        ingredients = intent.getStringArrayListExtra(AmendActivity.EXTRA_ADD_INGREDIENTS);
         /* Test display*/
         try {
             this.updateIngredientList(ingredients);

@@ -11,6 +11,7 @@ import org.json.simple.JSONObject;
 /**Represents a cocktail recipe for the other classes
  *
  */
+@SuppressWarnings("Convert2Diamond")
 public class Recipe {
     private String name;
     private String instructions;

@@ -11,7 +11,7 @@ import android.view.View;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String LOG_TAG = "MainActivity";
 
 
     @Override
@@ -26,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void takePhoto(View view) {
-        Log.d(TAG,"photoButton was pressed");
+        Log.d(LOG_TAG,"photoButton was pressed");
         Intent checkIngredientsIntent = new Intent(this,AmendActivity.class);
-        Log.d(TAG,"launching AmendActivity");
+        Log.d(LOG_TAG,"launching AmendActivity");
         startActivity(checkIngredientsIntent);
     }
 }

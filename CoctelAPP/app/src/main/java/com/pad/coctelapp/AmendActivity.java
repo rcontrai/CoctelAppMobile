@@ -16,20 +16,21 @@ import java.util.List;
 /** Activity that displays the drinks that were identified previously for review by the user.\n
  *  Planned : should allow them to edit the list if they find it wrong.
  */
+@SuppressWarnings("Convert2Diamond")
 public class AmendActivity extends AppCompatActivity {
 
-    private static final String TAG = "AmendActivity";
+    private static final String LOG_TAG = "AmendActivity";
     static final String EXTRA_ADD_INGREDIENTS = "es.ucm.fdi.calculator.EXTRA_ADD_INGREDIENTS";
 
     RecyclerView recyclerView;
     IngredientListAdapter adapter;
     /** the list of ingredients to be displayed for review by the user and possibly edited */
-    public List<String> ingredients;
+    public ArrayList<String> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"AmendActivity started");
+        Log.d(LOG_TAG,"AmendActivity started");
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             setContentView(R.layout.activity_amend_p);
         } else {
@@ -71,12 +72,13 @@ public class AmendActivity extends AppCompatActivity {
      * @param view
      */
     public void startCocktailSearch(View view) {
-        Log.d(TAG,"searchCocktailButton was pressed");
+        Log.d(LOG_TAG,"searchCocktailButton was pressed");
         Intent checkRecipesIntent = new Intent(this,CocktailChoiceActivity.class);
-        ArrayList<CharSequence> charSequenceIngredients = new ArrayList<CharSequence>(ingredients.size());
+        /*ArrayList<CharSequence> charSequenceIngredients = new ArrayList<CharSequence>(ingredients.size());
         charSequenceIngredients.addAll(ingredients);
-        checkRecipesIntent.putCharSequenceArrayListExtra(EXTRA_ADD_INGREDIENTS,charSequenceIngredients);
-        Log.d(TAG,"launching CocktailChoiceActivity");
+        checkRecipesIntent.putCharSequenceArrayListExtra(EXTRA_ADD_INGREDIENTS,charSequenceIngredients);*/
+        checkRecipesIntent.putStringArrayListExtra(EXTRA_ADD_INGREDIENTS,ingredients);
+        Log.d(LOG_TAG,"launching CocktailChoiceActivity");
         startActivity(checkRecipesIntent);
     }
 }
