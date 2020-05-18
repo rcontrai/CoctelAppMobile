@@ -1,4 +1,4 @@
-package com.pad.coctelapp;
+package com.pad.coctelapp.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,27 +9,31 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pad.coctelapp.R;
+import com.pad.coctelapp.util.Recipe;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/** Adapter for a recyclerView aimed at displaying a list of ingredients. \n
+/** Adapter for a recyclerView aimed at displaying a list of recipes. \n
  *  Refer to the documentation of the RecyclerView interface for more information.
  */
-class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.ViewHolder> {
-    private List<String> mIngredients;
+@SuppressWarnings("Convert2Diamond")
+public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.ViewHolder> {
+    private List<Recipe> mRecipes;
     private LayoutInflater inflater;
 
-    public IngredientListAdapter(Context context) {
+    public RecipeListAdapter(Context context) {
         super();
         this.inflater = LayoutInflater.from(context);
-        this.mIngredients = new ArrayList<String>();
+        this.mRecipes = new ArrayList<Recipe>();
     }
 
-    /** Sets the list of ingredients to be displayed
+    /** Sets the list of recipes to be displayed
      *
-     * @param ingredients a list of Strings representing ingredients
+     * @param recipes a list of Strings representing recipes
      */
-    public void setIngredients(List<String> ingredients) { mIngredients = ingredients;}
+    public void setRecipes(List<Recipe> recipes) { mRecipes = recipes;}
 
     @NonNull
     @Override
@@ -39,13 +43,14 @@ class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.V
     }
 
     @Override
-    public void onBindViewHolder(@NonNull IngredientListAdapter.ViewHolder holder, int position) {
-        holder.wordItemView.setText(mIngredients.get(position) + "\n");
+    public void onBindViewHolder(@NonNull RecipeListAdapter.ViewHolder holder, int position) {
+        Recipe current = mRecipes.get(position);
+        holder.wordItemView.setText(String.format("%s\n%s\n",current.getName(),current.getIngredients()));
     }
 
     @Override
     public int getItemCount() {
-        return mIngredients.size();
+        return mRecipes.size();
     }
 
     /** A ViewHolder consisting of a single TextView

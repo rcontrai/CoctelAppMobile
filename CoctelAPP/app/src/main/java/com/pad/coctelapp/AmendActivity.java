@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pad.coctelapp.ui.IngredientListAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,9 +76,6 @@ public class AmendActivity extends AppCompatActivity {
     public void startCocktailSearch(View view) {
         Log.d(LOG_TAG,"searchCocktailButton was pressed");
         Intent checkRecipesIntent = new Intent(this,CocktailChoiceActivity.class);
-        /*ArrayList<CharSequence> charSequenceIngredients = new ArrayList<CharSequence>(ingredients.size());
-        charSequenceIngredients.addAll(ingredients);
-        checkRecipesIntent.putCharSequenceArrayListExtra(EXTRA_ADD_INGREDIENTS,charSequenceIngredients);*/
         checkRecipesIntent.putStringArrayListExtra(EXTRA_ADD_INGREDIENTS,ingredients);
         Log.d(LOG_TAG,"launching CocktailChoiceActivity");
         startActivity(checkRecipesIntent);

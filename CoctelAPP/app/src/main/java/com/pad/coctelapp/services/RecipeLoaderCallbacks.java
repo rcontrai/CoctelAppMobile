@@ -39,8 +39,7 @@ public class RecipeLoaderCallbacks implements LoaderManager.LoaderCallbacks<List
     @Override
     public void onLoadFinished(@NonNull Loader<List<Recipe>> loader, List<Recipe> data) {
         Log.d(LOG_TAG,"Load finished");
-
-
+        caller.updateRecipeList(data);
     }
 
     @Override

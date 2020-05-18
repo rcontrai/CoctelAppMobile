@@ -5,9 +5,15 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pad.coctelapp.services.RecipeLoaderCallbacks;
+import com.pad.coctelapp.ui.RecipeListAdapter;
+import com.pad.coctelapp.util.Recipe;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /** Activity that launches a search for cocktails on theCocktailDB and then displays
@@ -16,13 +22,16 @@ import java.util.List;
 public class CocktailChoiceActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "AmendActivity";
+    private static final int RECIPE_LOADER_ID = 0;
 
     RecyclerView recyclerView;
-    IngredientListAdapter adapter; //Temporary, should be replaced by a class dedicated to cocktail lists
+    RecipeListAdapter adapter;
     /** the list of ingredients to use as search terms on theCocktailDB*/
-    List<String> ingredients;
+    ArrayList<String> ingredients;
+    private RecipeLoaderCallbacks recipeLoaderCallbacks = new RecipeLoaderCallbacks(this);
 
     @Override
+    @SuppressWarnings( "deprecation" )
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(LOG_TAG,"CocktailChoiceActivity started");
@@ -30,29 +39,26 @@ public class CocktailChoiceActivity extends AppCompatActivity {
 
         //Setting up recyclerView
         recyclerView = findViewById(R.id.recyclerView);
-        adapter = new IngredientListAdapter(this);
+        adapter = new RecipeListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Getting the list of ingredients to search from the intent that summoned the activity
         Intent intent = getIntent();
-        /*ArrayList<CharSequence> charSequenceIngredients
-                = intent.getCharSequenceArrayListExtra(AmendActivity.EXTRA_ADD_INGREDIENTS);
-        ingredients = new ArrayList<String>(charSequenceIngredients.size());
-        for (CharSequence ingr : charSequenceIngredients) {
-            ingredients.add((String) ingr);
-        }*/
         ingredients = intent.getStringArrayListExtra(AmendActivity.EXTRA_ADD_INGREDIENTS);
-        /* Test display*/
-        try {
-            this.updateIngredientList(ingredients);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }/**/
+
+        LoaderManager loaderManager = LoaderManager.getInstance(this);
+        if(loaderManager.getLoader(RECIPE_LOADER_ID) != null) {
+            loaderManager.initLoader(RECIPE_LOADER_ID,null, recipeLoaderCallbacks);
+        }
+
+        Bundle argsBundle = new Bundle();
+        argsBundle.putStringArrayList("ingredients",ingredients);
+        getSupportLoaderManager().restartLoader(RECIPE_LOADER_ID, argsBundle, recipeLoaderCallbacks);
     }
 
-    public void updateIngredientList(List<String> ingredients) { //Temporary, should be replaced by something handling cocktail lists
-        adapter.setIngredients(ingredients);
+    public void updateRecipeList(List<Recipe> recipes) {
+        adapter.setRecipes(recipes);
         adapter.notifyDataSetChanged();
     }
 }
