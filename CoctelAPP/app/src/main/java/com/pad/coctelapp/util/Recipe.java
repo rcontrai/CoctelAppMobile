@@ -1,5 +1,7 @@
 package com.pad.coctelapp.util;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -93,4 +95,27 @@ public class Recipe {
         //"Url Photo :" + this.getPhotoURL());
     }
 
+    /** Converts the list of ingredients and the list of amounts into
+     * a more readable format
+     *
+     * @return a String made of blocs following the format "ingredient (amount)",
+     *          separated by commas
+     */
+    public String ingredientsAndAmountsToString() {
+        String res = "";
+        int length = ingredients.size();
+        for (int i=0; i<length; i++) {
+            if (amounts.get(i).toString() != null && amounts.get(i).toString().length() > 0) {
+                res = res.concat(String.format("%s (%s)", ingredients.get(i)
+                                                  , amounts.get(i)));
+            } else {
+                res = res.concat(String.format("%s", ingredients.get(i)));
+            }
+            if(i<length-1) {
+                res = res.concat(", ");
+            }
+
+        }
+        return res;
+    }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,14 +39,14 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = inflater.inflate(R.layout.item_wordlistitem, parent, false);
+        View itemView = inflater.inflate(R.layout.item_cocktail, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecipeListAdapter.ViewHolder holder, int position) {
         Recipe current = mRecipes.get(position);
-        holder.wordItemView.setText(String.format("%s\n%s\n",current.getName(),current.getIngredients()));
+        holder.bind(current);
     }
 
     @Override
@@ -56,11 +57,26 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
     /** A ViewHolder consisting of a single TextView
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView wordItemView;
+
+        TextView textView;
+        ImageView imageView;
 
         public ViewHolder(View v) {
             super(v);
-            wordItemView = itemView.findViewById(R.id.word);
+            textView = itemView.findViewById(R.id.text);
+            imageView = itemView.findViewById(R.id.image);
+        }
+
+        /** Fills the view holder with the data from a recipe
+         *
+         * @param recipe a recipe
+         */
+        public void bind(Recipe recipe) {
+            textView.setText(
+                    String.format("%s\n%s",
+                            recipe.getName(),
+                            recipe.ingredientsAndAmountsToString()));
+            //imageView.
         }
     }
 }

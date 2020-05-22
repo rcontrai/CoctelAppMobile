@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,10 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pad.coctelapp.ui.IngredientListAdapter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-/** Activity that displays the drinks that were identified previously for review by the user.\n
- *  Planned : should allow them to edit the list if they find it wrong.
+/** Activity that displays the drinks that were identified previously for review by the user.
+ *  <p>Planned : should allow them to edit the list if they find it wrong.</p>
  */
 @SuppressWarnings("Convert2Diamond")
 public class AmendActivity extends AppCompatActivity {
@@ -26,6 +29,7 @@ public class AmendActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     IngredientListAdapter adapter;
+    EditText editTextIngredient;
     /** the list of ingredients to be displayed for review by the user and possibly edited */
     public ArrayList<String> ingredients;
 
@@ -45,13 +49,16 @@ public class AmendActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        editTextIngredient = findViewById(R.id.editTextIngredient);
+
+        ingredients = new ArrayList<String>();
+
         /* Test display*/
         try {
-            ingredients = new ArrayList<String>();
             ingredients.add("Vodka");
             ingredients.add("Lager");
             ingredients.add("Blue Curacao");
-            ingredients.add("Cider");
+            //ingredients.add("Cider");
             this.updateIngredientList(ingredients);
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,8 +75,8 @@ public class AmendActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    /** onClick method for searchCocktailButton
-     *  launches CocktailChoiceActivity and passes the list o ingredients to search to it
+    /** onClick method for searchCocktailButton.
+     *  <p> Launches CocktailChoiceActivity and passes the list of ingredients to search to it </p>
      *
      * @param view
      */
@@ -79,5 +86,23 @@ public class AmendActivity extends AppCompatActivity {
         checkRecipesIntent.putStringArrayListExtra(EXTRA_ADD_INGREDIENTS,ingredients);
         Log.d(LOG_TAG,"launching CocktailChoiceActivity");
         startActivity(checkRecipesIntent);
+    }
+
+    /** onClick method for addButton.
+     *  <p> Adds the ingredient written in ingredientsEditText and updates the UI </p>
+     *
+     * @param view
+     */
+    public void addIngredients(View view) {
+        Log.d(LOG_TAG,"addButton was pressed");
+        String ingredient = editTextIngredient.getText().toString();
+        if (ingredient.length() > 0) {
+            if(!ingredients.contains(ingredient)) {
+                ingredients.add(ingredient);
+                updateIngredientList(ingredients);
+            }
+        }
+        editTextIngredient.getText().clear();
+
     }
 }

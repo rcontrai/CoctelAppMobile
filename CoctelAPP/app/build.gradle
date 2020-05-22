@@ -39,4 +39,5 @@ dependencies {
     implementation files('libs\\json-simple-1.1.1.jar')
     implementation files('libs\\okhttp-3.5.0.jar')
     implementation files('libs\\okio-1.11.0.jar')
+    implementation 'androidx.cardview:cardview:1.0.0'
 }
