@@ -3,6 +3,8 @@ package com.pad.coctelapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
@@ -24,8 +26,10 @@ public class CocktailChoiceActivity extends AppCompatActivity {
     private static final String LOG_TAG = "AmendActivity";
     private static final int RECIPE_LOADER_ID = 0;
 
-    RecyclerView recyclerView;
+    /** the RecyclerView used to display the results*/
+    public RecyclerView recyclerView;
     RecipeListAdapter adapter;
+    TextView resultsText;
     /** the list of ingredients to use as search terms on theCocktailDB*/
     ArrayList<String> ingredients;
     private RecipeLoaderCallbacks recipeLoaderCallbacks = new RecipeLoaderCallbacks(this);
@@ -43,6 +47,9 @@ public class CocktailChoiceActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        resultsText = findViewById(R.id.cocktailsText);
+        setResultsText("Loading...");
+
         //Getting the list of ingredients to search from the intent that summoned the activity
         Intent intent = getIntent();
         ingredients = intent.getStringArrayListExtra(AmendActivity.EXTRA_ADD_INGREDIENTS);
@@ -57,8 +64,22 @@ public class CocktailChoiceActivity extends AppCompatActivity {
         getSupportLoaderManager().restartLoader(RECIPE_LOADER_ID, argsBundle, recipeLoaderCallbacks);
     }
 
+    /** Updates the list of recipes displayed by recyclerView
+     *
+     * @param recipes a list of recipes
+     */
     public void updateRecipeList(List<Recipe> recipes) {
         adapter.setRecipes(recipes);
         adapter.notifyDataSetChanged();
     }
+
+    /** Sets the text of the resultsText TextView
+     *
+     * @param text
+     */
+    public void setResultsText(String text) {
+        resultsText.setText(text);
+    }
+
+
 }

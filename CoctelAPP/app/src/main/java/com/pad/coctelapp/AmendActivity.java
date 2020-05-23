@@ -53,7 +53,7 @@ public class AmendActivity extends AppCompatActivity {
 
         ingredients = new ArrayList<String>();
 
-        /* Test display*/
+        /* Test display
         try {
             ingredients.add("Vodka");
             ingredients.add("Lager");

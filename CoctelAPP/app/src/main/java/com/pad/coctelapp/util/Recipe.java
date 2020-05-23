@@ -20,6 +20,7 @@ public class Recipe {
     private List<String> ingredients;
     private List<Amount> amounts;
     private String photoURL;
+    private String id;
 
     /** Creates a cocktail recipe from its JSON description
      *
@@ -35,6 +36,7 @@ public class Recipe {
         this.ingredients = new ArrayList<String>();
         this.amounts = new ArrayList<Amount>();
         this.photoURL = (String) innerObj.get("strDrinkThumb");
+        this.id = (String) innerObj.get("idDrink");
         // take value from the json array separately
         int i = 1;
         while(innerObj.get("strIngredient" + i) != null && i<=15) {
