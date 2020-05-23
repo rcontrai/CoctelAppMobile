@@ -103,6 +103,23 @@ public class AmendActivity extends AppCompatActivity {
             }
         }
         editTextIngredient.getText().clear();
-
     }
+
+    /** onClick method for deleteButton.
+     *  <p> Adds the ingredient written in ingredientsEditText and updates the UI </p>
+     *
+     * @param view
+     */
+    public void deleteIngredient(View view) {
+        Log.d(LOG_TAG,"deleteButton was pressed");
+        String ingredient = editTextIngredient.getText().toString();
+        if (ingredient.length() > 0) {
+            if(ingredients.contains(ingredient)) {
+                ingredients.remove(ingredient);
+                updateIngredientList(ingredients);
+            }
+        }
+        editTextIngredient.getText().clear();
+    }
+
 }

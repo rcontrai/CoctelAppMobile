@@ -7,6 +7,17 @@
     android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/deleteButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="deleteIngredient"
+        android:text="delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
         android:id="@+id/searchCocktailButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,7 +81,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
-        android:hint="Add more ingredients"
+        android:hint="ingredient"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addButton2"
@@ -80,10 +91,9 @@
         android:id="@+id/addButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:onClick="addIngredients"
         android:text="add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/deleteButton2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,9 @@ import com.pad.coctelapp.util.Recipe;
 
 import java.util.List;
 
+/** OnClickListener used to make the elements of a list of recipes clickable
+ *
+ */
 class RecipeOnClickListener implements View.OnClickListener {
     private static final String LOG_TAG = "RecipeOnClickListener";
     private RecyclerView mRecyclerView;
@@ -22,6 +25,10 @@ class RecipeOnClickListener implements View.OnClickListener {
         mList = l;
     }
 
+    /** Click handler for an element of the list
+     * <p>Currently does nothing</p>
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         int itemPosition = mRecyclerView.getChildAdapterPosition(view);
